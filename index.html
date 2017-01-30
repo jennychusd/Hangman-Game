@@ -4,12 +4,38 @@
 	<title>Jenny Chu</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">	
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<script type="text/javascript" src="assets/javascript/game.js"></script>
 </head>
 
 <body>
 
 
+<header>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-8 col-xs-offset-2">
+			<h1>Hangman</h1>
+		</div>
+	</div>
+</div>
+</header>
+<section>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4 col-xs-offset-2 mainContent">
+			<img src="http://placehold.it/300x250" alt="" />
+		</div>
+		<div class="col-xs-4 mainContent">
+			Press any key to get started!<br><br>
+			Wins: <div id="winsCount">0</div>
+			Current word: <div id="answerDisplay)"></div>
+			Number of guesses remaining: <div id="guessesRemaining">10</div>
+			Letters already guessed: <div id="alreadyGuessed)"></div>
+		</div>
+	</div>
+</div>
+</section>
 
 </body>
 </html>
