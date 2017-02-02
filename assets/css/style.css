@@ -1,8 +1,53 @@
+body {
+	background-color: #ffe6cc;
+}
+
 h1 {
 	text-align:center;
+	text-transform: uppercase;
+	letter-spacing: 10px;
+}
+
+h2 {
+	text-align: center;
+	margin-top:5px;
+	margin-bottom:30px;
+}
+
+@keyframes jetsetter {
+    from {color: black;}
+    to {color: #0000cc;}
+}
+
+.animation {
+	animation-name: jetsetter;
+    animation-duration: 4s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
 }
 
 .mainContent {
 	border: 1px solid #999999;
 	text-align:center;
+}
+
+.section {
+	height: 500px;
+}
+
+.mainContent {
+	height:300px;
+	padding:20px;
+	background-color: white;
+}
+
+p {
+	font-size:18px;
+	padding-bottom:20px 0;
+}
+
+img {
+	width:300px;
+	height:auto;
+	max-width:100%;
 }

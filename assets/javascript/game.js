@@ -1,64 +1,101 @@
-var possibleAns = ["Paris", "Amsterdam", "Tokyo", "Seoul", "Taipei", "Manila", "Mumbai", "Delhi", "Cairo", "Moscow", "Shanghai", "Beijing"];
-var currentAns = "";
+var possibleAns = ["paris", "amsterdam", "tokyo", "seoul", "taipei", "manila", "mumbai", "delhi", "cairo", "moscow", "shanghai", "beijing", "london"];
+var currentAns;
 var alreadyGuessed = [];
-var userGuess = "";
+var userGuess;
 var currentAnsArr = [];
+var dupeGuess;
+var guessesRemaining;
 
-window.onload = function newGame () {
+function newGame() {
 	//declare current answer
 	currentAns = possibleAns[Math.floor(Math.random() * possibleAns.length)];
 	console.log("Current answer: " + currentAns);
-	//reset guesses remaining and already guessed
-	// document.getElementById("guessesRemaining").innerHTML = "10";
-	// document.getElementById("alreadyGuessed").innerHTML = "";
-}
-
-window.onkeydown = function(event) {
-
-	userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-	console.log("userGuess: " + userGuess);
-	alreadyGuessed.push(userGuess);
-
 	//count number of characters in current answer
 	currentAnsArr = currentAns.split("");
 	console.log("Length of current answer: " + currentAnsArr.length);
-	alreadyGuessed.push(userGuess);
-
-	//display in underscores number of characters in current answer
-	var count = 0;
-	while (count < currentAnsArr.length) {
-		var underscores = document.getElementById("answerDisplay").innerHTML;
-		underscores += "_ ";
-		document.getElementById("answerDisplay").innerHTML = underscores;
-		count++;
+	console.log(currentAnsArr);
+	document.getElementById('answerDisplay').innerHTML = "";
+	// use loop to add underscores
+	for (var i=0; i < currentAnsArr.length; i++) {
+		var newSpan = $("<span>");
+		newSpan.html("_ ");
+		$("#answerDisplay").append(newSpan);
 	}
+	//reset guesses remaining, already guessed, already guessed array
+	document.getElementById("guessesRemaining").innerHTML = "10";
+	document.getElementById("alreadyGuessed").innerHTML = "";
+	alreadyGuessed = [];
+}
 
-	//use for loop to check if user's guess match any letters of current answer
-	for (var i = 0; i < currentAnsArr.length; i++) {
-		if (currentAnsArr[i].toLowerCase() == userGuess) {
-			console.log("Index " + i + " guessed correctly");
-		} else {
-			
+function winGame() {
+	console.log("running winGame function");
+	var newWinCount = Number(document.getElementById("winsCount").innerHTML);
+	newWinCount += 1;
+	document.getElementById("winsCount").innerHTML = newWinCount;
+	newGame();
+}
+
+function checkAlreadyGuessed() {
+   // check if userGuess is a duplicate guess
+    if (alreadyGuessed.length == 0) {
+        console.log("array empty");
+        dupeGuess = false;
+    }   else {
+        for (i = 0; i < alreadyGuessed.length; i++) {
+            if (userGuess === alreadyGuessed[i]) {
+                console.log("duplicate guess = true");
+                dupeGuess = true;
+                return true;
+            } else {
+                dupeGuess = false;
+                console.log("duplicate guess = false");
+            }
+        }
+    }
+}
+
+function checkAnsArray() {
+	// check if userGuess matches any letter in answer
+	for (var i=0; i < currentAnsArr.length; i++) {
+		if (userGuess === currentAnsArr[i]) {
+			var childSelector = document.getElementById('answerDisplay').childNodes;
+			childSelector[i].innerHTML = userGuess;
+		}
+	}
+	// win game if entire array guessed correctly
+	var str = String(document.getElementById('answerDisplay').innerHTML);
+	var n = str.includes("_");
+
+	if (n === false) {
+		winGame();
+	}
+}
+
+window.onkeydown = function(event) {
+	if (event.keyCode >= 65 && event.keyCode <= 90) {
+		userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+		console.log("userGuess: " + userGuess);
+		// check userGuess against alreadyGuessed array
+		checkAlreadyGuessed();
+		// add userGuess to alreadyGuessed array if not dupe guess
+		if (dupeGuess === false) {
+			alreadyGuessed.push(userGuess);
+			console.log(alreadyGuessed);
+			// decrease guesses remaining by one if not dupe guess
+			guessesRemaining = Number(document.getElementById("guessesRemaining").innerHTML);
+			guessesRemaining -= 1
+			document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
+			// log guess under already guessed section
+			document.getElementById("alreadyGuessed").innerHTML += userGuess + ", ";
+
+			checkAnsArray();
 		}
 	}
 
-	//decrease number of guesses remaining by one
-	var decGuesses = document.getElementById("guessesRemaining").innerHTML;
-		decGuesses -= 1;
-		document.getElementById("guessesRemaining").innerHTML = decGuesses;
-
-	//if guessed correctly, replace underscore
-
-
-	//if did not guess correctly, display letter in letters already guessed section
-
-
-	//decrease number of guesses remaining
-
-
-	//if guess all letters, increase wins by one and change image src
-
-
-	//if run out of guesses, reset the game
-
+	if (guessesRemaining === 0) {
+		console.log("you lose");
+		newGame();
+	}
 }
+
+newGame();
