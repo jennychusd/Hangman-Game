@@ -5,6 +5,7 @@ var userGuess;
 var currentAnsArr = [];
 var dupeGuess;
 var guessesRemaining;
+var audioSound;
 
 function newGame() {
 	//declare current answer
@@ -67,8 +68,14 @@ function checkAnsArray() {
 	var n = str.includes("_");
 
 	if (n === false) {
+		playSound();
 		winGame();
 	}
+}
+
+function playSound() {
+    audioSound = new Audio("assets/yodalaughing.mp3");
+	audioSound.play();
 }
 
 window.onkeydown = function(event) {

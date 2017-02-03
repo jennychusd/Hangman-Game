@@ -6,24 +6,34 @@ h1 {
 	text-align:center;
 	text-transform: uppercase;
 	letter-spacing: 10px;
+	font-size:50px;
 }
 
 h2 {
 	text-align: center;
 	margin-top:5px;
 	margin-bottom:30px;
+	display:inline;
 }
 
-@keyframes jetsetter {
-    from {color: black;}
-    to {color: #0000cc;}
+#planeIcon {
+	width:25px;
+	height:auto;
+	padding:10pxs;
+}
+
+@keyframes mymove {
+    from {left: 0px;}
+    to {left: 300px;}
 }
 
 .animation {
-	animation-name: jetsetter;
-    animation-duration: 4s;
-    animation-iteration-count: 2;
-    animation-direction: alternate;
+	margin-bottom: 50px;
+    -webkit-transform: rotate(-5deg);
+    position:relative;
+    -webkit-animation: mymove 5s infinite;
+    animation: mymove 5s infinite;
+    animation-timing-function: linear;
 }
 
 .mainContent {
